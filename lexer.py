@@ -19,7 +19,8 @@ tokens = (
     'EXMARK', 'WAVE', 'SUB', 'ADD', 'MUL', 'DIV', 'MOD', 'XOR',
     'GE', 'LE', 'OR', 'QUESTION',
     'IDENTIFIER', 'HEX_CONSTANT', 'OCT_CONSTANT', 'DEC_CONSTANT',
-    'SCIENCE_COUNT', 'DECIMAL', 'C_STRING', 'OBJC_STRING'
+    'SCIENCE_COUNT', 'DECIMAL', 'C_STRING', 'OBJC_STRING',
+    'INTERFACE', 'END'
 )
 
 t_AUTO = r'auto'
@@ -137,9 +138,10 @@ t_DECIMAL = r'([0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?(f|F|l|L)?)|([0-9]+\.[0-9]*([Ee][
 t_OBJC_STRING = r'@\"(\\.|[^\\"])*\"'
 t_C_STRING = r'\"(\\.|[^\\"])*\"'       # do not support 'L' expression to transform to an stack array
 
+t_INTERFACE = r'@interface'
+t_END = r'@end'
+
 
 def t_error(t):
     print('Illegal character', t.value[0])
     t.lexer.skip(1)
-
-lexer = lex.lex()
