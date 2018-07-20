@@ -30,8 +30,8 @@ def gen_var_declaration(ctx):
     code = []
     declaration_specifiers_ctx = ctx.declarationSpecifiers()
     init_declarator_list_ctx = ctx.initDeclaratorList()
-    code.extend(gen_declaration_specifiers(declaration_specifiers_ctx))
-    code.extend(gen_init_declarator_list(init_declarator_list_ctx))
+    (is_static, is_const, type_names) = gen_declaration_specifiers(declaration_specifiers_ctx)
+
     return code
 
 
