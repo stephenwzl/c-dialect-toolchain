@@ -59,6 +59,11 @@ def gen_declaration_specifiers(ctx):
 
 # TODO: complete
 def gen_init_declarator_list(ctx):
+    """
+    variable initializers, this indicates you can initialize a list of variable
+    :param ctx: initDeclaratorList
+    :return: list of variable initializers
+    """
     return []
 
 
@@ -103,5 +108,61 @@ def gen_type_specifier(ctx):
     if rule == ObjectiveCParser.RULE_identifier:
         return TYPENAME_POINTER
 
+
+def gen_init_declarator(ctx):
+
+    pass
+
+
+# this only returns identifier name
+def gen_declarator(ctx):
+    return gen_direct_declarator(ctx.directDeclarator())
+
+
+def gen_initializer(ctx):
+
+    pass
+
+
+def gen_direct_declarator(ctx):
+    is_block = ctx.blockParameters() is not None
+    block_name = None
+    block_parameters = None
+    variable_name = None
+    if is_block:
+        identifier_ctx = ctx.identifier()
+        block_parameters = gen_block_parameters(ctx.blockParameters())
+        if identifier_ctx is not None:
+            block_name = identifier_ctx.IDENTIFIER().getText()
+    else:
+        identifier_ctx = ctx.identifier()
+        if identifier_ctx is not None:
+            variable_name = identifier_ctx.IDENTIFIER().getText()
+        else:
+            ret = gen_declarator(ctx.declarator())
+            variable_name = ret[3]  # just access identifier
+            if ret[0] is True:
+                raise SyntaxError('do not support block declarator in non-block declarator')
+    return is_block, block_name, block_parameters, variable_name
+
+
+def gen_block_parameters(ctx):
+    pass
+
+
+def gen_array_initializer(ctx):
+    pass
+
+
+def gen_struct_initializer(ctx):
+    raise SyntaxError('currently does not support struct yet')
+
+
+def gen_expressions(ctx):
+    pass
+
+
+def gen_expression(ctx):
+    pass
 
 
