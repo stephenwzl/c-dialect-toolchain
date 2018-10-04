@@ -8,6 +8,7 @@ class ConstantPool(object):
     """
     instance = None
     pool = []
+    poolIndex = {}
 
     def __init__(self):
         raise SyntaxError('can not be called')
@@ -25,8 +26,11 @@ class ConstantPool(object):
         :param constant_value: constant actual value
         :return: index in constant pool
         """
+        if self.poolIndex.get(constant_value) is not None:
+            return self.poolIndex[constant_value]
         ret = len(self.pool)
         self.pool.append((constant_type, constant_value))
+        self.poolIndex[constant_value] = ret
         return ret
 
 

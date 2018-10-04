@@ -1,12 +1,15 @@
 # Generated from ObjectiveCParser.g4 by ANTLR 4.7.1
 from antlr4 import *
-
+from codegen.symbol_table import SymbolTable
+from codegen.constant_pool import *
+from codegen.expression import *
 
 # This class defines a complete listener for a parse tree produced by ObjectiveCParser.
 class ObjectiveCParserListener(ParseTreeListener):
 
     # Enter a parse tree produced by ObjectiveCParser#translationUnit.
     def enterTranslationUnit(self, ctx):
+        print 'enter listener'
         pass
 
     # Exit a parse tree produced by ObjectiveCParser#translationUnit.
@@ -495,6 +498,7 @@ class ObjectiveCParserListener(ParseTreeListener):
 
     # Enter a parse tree produced by ObjectiveCParser#functionDefinition.
     def enterFunctionDefinition(self, ctx):
+        print 'function definition'
         pass
 
     # Exit a parse tree produced by ObjectiveCParser#functionDefinition.
@@ -1143,6 +1147,7 @@ class ObjectiveCParserListener(ParseTreeListener):
 
     # Enter a parse tree produced by ObjectiveCParser#stringLiteral.
     def enterStringLiteral(self, ctx):
+        ConstantPool.shared_instance().push_constant(CONSTANT_TYPE_STRING, ctx.getText())
         pass
 
     # Exit a parse tree produced by ObjectiveCParser#stringLiteral.
